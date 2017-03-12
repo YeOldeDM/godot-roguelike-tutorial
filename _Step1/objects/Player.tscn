@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://objects/Player.gd" type="Script" id=1]
+[ext_resource path="res://graphics/player/base/human_m.png" type="Texture" id=2]
+[ext_resource path="res://graphics/player/base/shadow.png" type="Texture" id=3]
+
+[node name="Player" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Shadow" type="Sprite" parent="."]
+
+visibility/behind_parent = true
+texture = ExtResource( 3 )
+centered = false
+
+
