@@ -22,6 +22,8 @@ func _input(event):
 	var NW = event.is_action_pressed('step_NW')
 	var WAIT = event.is_action_pressed('step_WAIT')
 	
+	var GRAB = event.is_action_pressed('act_GRAB')
+	
 	if N:
 		object.step(Vector2(0,-1))
 	if NE:
@@ -41,3 +43,11 @@ func _input(event):
 	
 	if WAIT:
 		object.wait()
+	
+	if GRAB:
+		var items = []
+		for ob in RPG.map.get_objects_in_cell(object.get_map_pos()):
+			if ob.item:
+				items.append(ob)
+		if not items.empty():
+			items[0].item.pickup()

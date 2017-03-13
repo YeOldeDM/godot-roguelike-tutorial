@@ -74,6 +74,10 @@ func set_map_pos(cell):
 func get_map_pos():
 	return RPG.map.world_to_map(get_pos())
 
+# Get our Icon texture
+func get_icon():
+	return get_node('Sprite').get_texture()
+
 
 
 func _ready():

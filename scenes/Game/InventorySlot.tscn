@@ -22,6 +22,8 @@ script/script = ExtResource( 1 )
 
 [node name="Icon" type="Sprite" parent="."]
 
+centered = false
+
 [node name="Count" type="Label" parent="."]
 
 anchor/left = 1

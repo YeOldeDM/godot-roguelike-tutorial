@@ -3,7 +3,10 @@ extends Node
 onready var owner = get_parent()
 
 export(String) var use_function = ''
+export(bool) var stackable = false
 export(bool) var indestructible = false
+
+var inventory_slot
 
 func use():
 	if use_function.empty():
@@ -18,7 +21,7 @@ func use():
 			owner.kill()
 
 func pickup():
-	pass
+	RPG.inventory.add_to_inventory(owner)
 
 func drop():
 	pass

@@ -1,22 +1,22 @@
 extends Button
 
-var contents = [] setget _set_contents
+var contents = []
+
+func add_contents(what):
+	contents.append(what)
+	what.inventory_slot = self
+	update_slot()
+	
+
+func remove_contents(what):
+	contents.remove(contents.find(what))
+	what.inventory_slot = null
+	update_slot()
 
 
-
-func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-	pass
-
-
-
-
-
-func _set_contents(what):
-	contents = what
+func update_slot():
 	if not contents.empty():
-		get_node('Icon').set_texture(contents[0].get_node('Icon').get_texture())
+		get_node('Icon').set_texture(contents[0].get_icon())
 		set_disabled(false)
 	else:
 		get_node('Icon').set_texture(null)
@@ -27,4 +27,8 @@ func _set_contents(what):
 	get_node('Count').set_text(txt)
 
 
+
+func _ready():
+	connect("mouse_enter", get_parent(), "_on_slot_mouse_enter", [self])
+	connect("mouse_exit", get_parent(), "_on_slot_mouse_exit")
 
