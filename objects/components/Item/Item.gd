@@ -24,7 +24,8 @@ func pickup():
 	RPG.inventory.add_to_inventory(owner)
 
 func drop():
-	pass
+	assert inventory_slot != null
+	RPG.inventory.remove_from_inventory(inventory_slot,owner)
 
 func _ready():
 	owner.item = self

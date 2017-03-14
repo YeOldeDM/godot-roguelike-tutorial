@@ -3,6 +3,9 @@ extends GridContainer
 onready var objects = get_node('../InventoryObjects')
 onready var name_label = get_node('../ItemName')
 
+# Get an array of all inventory Objects
+func get_objects():
+	return self.objects.get_children()
 
 # Get the first free inventoryslot
 func get_free_slot():

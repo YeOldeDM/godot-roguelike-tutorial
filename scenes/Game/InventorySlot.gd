@@ -4,13 +4,13 @@ var contents = []
 
 func add_contents(what):
 	contents.append(what)
-	what.inventory_slot = self
+	what.item.inventory_slot = self
 	update_slot()
 	
 
 func remove_contents(what):
 	contents.remove(contents.find(what))
-	what.inventory_slot = null
+	what.item.inventory_slot = null
 	update_slot()
 
 

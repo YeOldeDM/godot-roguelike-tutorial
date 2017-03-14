@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://resources/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/Game/Game.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/Game/PlayerInfo.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Game/Inventory.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Game/InventorySlot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Game/InventoryMenu.gd" type="Script" id=7]
 
 [node name="Game" type="Container"]
 
@@ -24,6 +25,7 @@ script/script = ExtResource( 2 )
 
 [node name="frame" type="HBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -147,6 +149,35 @@ margin/right = 394.0
 margin/bottom = 228.0
 alignment = 0
 
+[node name="InventoryAction" type="HBoxContainer" parent="frame/right/Activity/box"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 388.0
+margin/bottom = 32.0
+alignment = 0
+
+[node name="Drop" type="Button" parent="frame/right/Activity/box/InventoryAction"]
+
+rect/min_size = Vector2( 40, 32 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 77.0
+margin/bottom = 32.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "drop Items"
+flat = false
+
 [node name="ItemName" type="Label" parent="frame/right/Activity/box"]
 
 focus/ignore_mouse = true
@@ -154,9 +185,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 0.0
+margin/top = 36.0
 margin/right = 388.0
-margin/bottom = 17.0
+margin/bottom = 53.0
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -169,9 +200,9 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 21.0
+margin/top = 57.0
 margin/right = 388.0
-margin/bottom = 161.0
+margin/bottom = 197.0
 columns = 8
 script/script = ExtResource( 5 )
 
@@ -392,25 +423,115 @@ margin/bottom = 140.0
 visibility/visible = false
 transform/pos = Vector2( -6, -6 )
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="InventoryMenu" type="PopupPanel" parent="."]
 
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-velocity/linear = Vector2( 0, 0 )
-velocity/angular = 0.0
-damp_override/linear = -1.0
-damp_override/angular = -1.0
+process/pause_mode = 2
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+popup/exclusive = false
+script/script = ExtResource( 7 )
+
+[node name="frame" type="VBoxContainer" parent="InventoryMenu"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+alignment = 0
+
+[node name="Header" type="Label" parent="InventoryMenu/frame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1008.0
+margin/bottom = 17.0
+text = "Choose Item(s) to drop.."
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HSeparator" type="HSeparator" parent="InventoryMenu/frame"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 21.0
+margin/right = 1008.0
+margin/bottom = 24.0
+
+[node name="Contents" type="HBoxContainer" parent="InventoryMenu/frame"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 28.0
+margin/right = 1008.0
+margin/bottom = 567.0
+alignment = 0
+
+[node name="Items" type="VBoxContainer" parent="InventoryMenu/frame/Contents"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 251.0
+margin/bottom = 539.0
+alignment = 0
+
+[node name="Info" type="PanelContainer" parent="InventoryMenu/frame/Contents"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+size_flags/stretch_ratio = 3.0
+margin/left = 255.0
+margin/top = 0.0
+margin/right = 1008.0
+margin/bottom = 539.0
+
+[node name="Footer" type="Label" parent="InventoryMenu/frame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 571.0
+margin/right = 1008.0
+margin/bottom = 588.0
+text = "T to confirm. Esc or RMB to cancel"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="pressed" from="frame/right/Activity/box/InventoryAction/Drop" to="." method="_on_Drop_pressed"]
 
 

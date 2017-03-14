@@ -23,6 +23,7 @@ func _input(event):
 	var WAIT = event.is_action_pressed('step_WAIT')
 	
 	var GRAB = event.is_action_pressed('act_GRAB')
+	var DROP = event.is_action_pressed('act_DROP')
 	
 	if N:
 		object.step(Vector2(0,-1))
@@ -51,3 +52,7 @@ func _input(event):
 				items.append(ob)
 		if not items.empty():
 			items[0].item.pickup()
+	
+	if DROP:
+		RPG.game._on_Drop_pressed()
+

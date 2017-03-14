@@ -4,6 +4,8 @@ onready var messagebox = get_node('frame/left/MessageBox')
 onready var playerinfo = get_node('frame/right/PlayerInfo')
 onready var viewport_panel = get_node('frame/left/map')
 
+onready var inventory_menu = get_node('InventoryMenu')
+
 var is_mouse_in_map = false setget _set_is_mouse_in_map
 var mouse_cell = Vector2() setget _set_mouse_cell
 
@@ -40,3 +42,16 @@ func _set_is_mouse_in_map(what):
 func _set_mouse_cell(what):
 	mouse_cell = what
 	RPG.map.set_cursor()
+
+
+func _on_Drop_pressed():
+	var mode = inventory_menu.MODE_DROP
+	var header = "Choose item(s) to Drop..."
+	var footer = "T to confirm, ESC or RMB to cancel"
+	inventory_menu.start(mode,header,footer)
+	
+	var callback = yield(inventory_menu, 'items_selected')
+	
+	if !callback.empty():
+		for obj in callback:
+			obj.item.drop()
