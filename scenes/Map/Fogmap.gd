@@ -2,6 +2,7 @@ extends TileMap
 
 onready var map = get_parent()
 
+
 func fill():
 	var size = RPG.MAP_SIZE
 	for x in range(size.x):
@@ -9,6 +10,7 @@ func fill():
 			set_cell(x,y,0)
 
 func reveal(cells):
+	map.fov_cells = cells
 	for cell in cells:
 		if get_cellv(cell) != -1:
 			set_cellv(cell,-1)

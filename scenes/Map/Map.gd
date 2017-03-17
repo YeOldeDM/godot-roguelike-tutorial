@@ -1,6 +1,6 @@
 extends TileMap
 
-
+var fov_cells # set by Fogmap
 
 func spawn_object(partial_path,cell):
 	var path = 'res://objects/' +partial_path+ '.tscn'
@@ -45,8 +45,47 @@ func get_objects_in_cell(cell):
 			list.append(obj)
 	return list
 
+func get_objects_in_fov():
+	var list = []
+	for obj in get_tree().get_nodes_in_group('objects'):
+		if obj.get_map_pos() in fov_cells:
+			list.append(obj)
+	return list
+
+func get_nearest_visible_actor():
+	# Get visible objects
+	var actors = []
+	for obj in get_objects_in_fov():
+		if obj.is_in_group('actors') and obj != RPG.player:
+			actors.append(obj)
+	# drop out if no actors visible
+	if actors.empty():
+		return null
+	# keep track of nearest object and its distance
+	var nearest = actors[0]
+	var distance = nearest.distance_to(RPG.player.get_map_pos())
+	# compare all actors against nearest, replace if nearer
+	for actor in actors:
+		var D = actor.distance_to(RPG.player.get_map_pos())
+		if D < distance:
+			nearest = actor
+			distance = D
+	# return nearest
+	return nearest
+
 func is_wall(cell):
 	return DungeonGen.get_cell_data(cell) == 1
+
+
+func spawn_fx(texture, cell):
+	var fx = Sprite.new()
+	fx.set_centered(false)
+	fx.set_texture(texture)
+	add_child(fx)
+	fx.set_pos( map_to_world(cell) )
+	fx.add_to_group('fx')
+
+
 
 func set_cursor_hidden(is_hidden):
 	get_node('Cursor').set_hidden(is_hidden)
@@ -98,9 +137,14 @@ func _ready():
 
 
 func _on_player_acted():
-	
+	# process active actors
 	for node in get_tree().get_nodes_in_group('actors'):
 		if node != RPG.player and node.ai and node.discovered:
 			node.ai.take_turn()
-
+	# process FX objects
+	for node in get_tree().get_nodes_in_group('fx'):
+		if node.has_meta('kill'):
+			node.queue_free()	#kill me this turn
+		else:
+			node.set_meta('kill')	#kill me next turn
 			

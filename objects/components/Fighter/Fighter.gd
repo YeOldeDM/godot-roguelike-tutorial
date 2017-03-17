@@ -22,7 +22,7 @@ func is_hp_full():
 
 func fight(who):
 	if who.fighter:
-		who.fighter.take_damage(owner,self.power)
+		who.fighter.take_damage(owner.name, self.power)
 
 func heal_damage(from,amount):
 	if owner == RPG.player:
@@ -34,18 +34,16 @@ func take_damage(from,amount):
 	self.hp -= amount
 
 func broadcast_damage_healed(from, amount):
-	var n = from.name
 	var m = str(amount)
 	var color = RPG.COLOR_GREEN
-	RPG.broadcast("The " +n+ " restores " +m+ " HP!", color)
+	RPG.broadcast("The " +from+ " restores " +m+ " HP!", color)
 
 func broadcast_damage_taken(from, amount):
-	var n = from.name
 	var m = str(amount)
 	var color = RPG.COLOR_DARK_GREY
 	if owner == RPG.player:
 		color = RPG.COLOR_RED
-	RPG.broadcast(n+ " hits " +owner.name+ " for " +str(amount)+ " HP",color)
+	RPG.broadcast(from+ " hits " +owner.name+ " for " +str(amount)+ " HP",color)
 
 func die():
 	if self.bleeds:
