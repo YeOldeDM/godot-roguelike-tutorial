@@ -52,6 +52,12 @@ func get_objects_in_fov():
 			list.append(obj)
 	return list
 
+func get_actor_in_cell(cell):
+	var list = self.get_objects_in_cell(cell)
+	for obj in list:
+		if obj.is_in_group('actors'):
+			return obj
+
 func get_nearest_visible_actor():
 	# Get visible objects
 	var actors = []
@@ -141,10 +147,12 @@ func _on_player_acted():
 	for node in get_tree().get_nodes_in_group('actors'):
 		if node != RPG.player and node.ai and node.discovered:
 			node.ai.take_turn()
+		# tick down status effects
+		node.fighter.process_status_effects()
 	# process FX objects
 	for node in get_tree().get_nodes_in_group('fx'):
 		if node.has_meta('kill'):
 			node.queue_free()	#kill me this turn
 		else:
-			node.set_meta('kill')	#kill me next turn
+			node.set_meta('kill',true)	#kill me next turn
 			

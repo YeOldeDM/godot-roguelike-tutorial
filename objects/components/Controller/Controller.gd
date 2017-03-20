@@ -6,6 +6,15 @@ onready var owner = get_parent()
 
 # Player-specific object functions
 
+
+func random_step():
+	var UP = randi()%2
+	var DOWN = randi()%2
+	var LEFT = randi()%2
+	var RIGHT = randi()%2
+	var dir = Vector2( RIGHT-LEFT, DOWN-UP )
+	owner.step(dir)
+
 # GRAB action
 func Grab():
 	var items = []
@@ -50,6 +59,11 @@ func _input(event):
 	
 	var GRAB = event.is_action_pressed('act_GRAB')
 	var DROP = event.is_action_pressed('act_DROP')
+	
+	if owner.fighter.has_status_effect('confused'):
+		if N or NE or E or SE or S or SW or W or NW or WAIT:
+			random_step()
+			return
 	
 	if N:
 		owner.step(Vector2(0,-1))

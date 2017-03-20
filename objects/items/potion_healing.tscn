@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://objects/components/Object/Object.gd" type="Script" id=1]
+[ext_resource path="res://graphics/items/potion/ruby.png" type="Texture" id=2]
+[ext_resource path="res://objects/components/Item/Item.tscn" type="PackedScene" id=3]
+[ext_resource path="res://graphics/brands/i-heal-wounds.png" type="Texture" id=4]
+
+[node name="Object" type="Node2D"]
+
+script/script = ExtResource( 1 )
+name = "Potion"
+blocks_movement = false
+stay_visible = true
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Item" parent="." instance=ExtResource( 3 )]
+
+use_function = "heal_player"
+param1 = 10
+stackable = true
+
+[node name="Brand" type="Sprite" parent="."]
+
+texture = ExtResource( 4 )
+centered = false
+
+

@@ -36,7 +36,7 @@ func step(dir):
 	var new_cell = get_map_pos() + dir
 	var blocker = RPG.map.is_cell_blocked(new_cell)
 	if typeof(blocker)==TYPE_OBJECT:
-		if blocker.fighter:
+		if blocker.fighter and blocker != self:
 			fighter.fight(blocker)
 			emit_signal('object_acted')
 	elif blocker==false:
@@ -75,6 +75,9 @@ func get_map_pos():
 func get_icon():
 	return get_node('Sprite').get_texture()
 
+# Get our Brand texture
+func get_brand():
+	return get_node('Brand').get_texture()
 
 
 func _ready():
@@ -103,3 +106,7 @@ func _on_hp_changed(current,full):
 	get_node('HPBar').set_hidden(current >= full)
 	get_node('HPBar').set_max(full)
 	get_node('HPBar').set_value(current)
+	
+	
+	
+	

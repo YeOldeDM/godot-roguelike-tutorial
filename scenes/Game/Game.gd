@@ -1,5 +1,7 @@
 extends Container
 
+signal map_clicked(cell)
+
 onready var messagebox = get_node('frame/left/MessageBox')
 onready var playerinfo = get_node('frame/right/PlayerInfo')
 onready var viewport_panel = get_node('frame/left/map')
@@ -25,15 +27,22 @@ func _ready():
 	spawn_player()
 	set_process_input(true)
 
+func pos_in_map(pos):
+	var rect = Rect2(pos,Vector2(1,1))
+	return viewport_panel.get_rect().intersects(rect)
 
 func _input( ev ):
 	if ev.type == InputEvent.MOUSE_MOTION:
-		var mpos = ev.pos
-		var mrect = Rect2(mpos,Vector2(1,1))
-		self.is_mouse_in_map = viewport_panel.get_rect().intersects(mrect)
+		self.is_mouse_in_map = pos_in_map(ev.pos)
 		var new_mouse_cell = RPG.map.world_to_map(RPG.map.get_local_mouse_pos())
 		if new_mouse_cell != mouse_cell:
 			self.mouse_cell = new_mouse_cell
+	if ev.type == InputEvent.MOUSE_BUTTON and ev.pressed:
+		if self.is_mouse_in_map:
+			if ev.button_index == BUTTON_LEFT:
+				emit_signal('map_clicked', self.mouse_cell)
+		if ev.button_index == BUTTON_RIGHT:
+			emit_signal('map_clicked', null)
 
 func _set_is_mouse_in_map(what):
 	is_mouse_in_map = what

@@ -1,5 +1,7 @@
 extends Node
 
+
+
 signal hp_changed(current,full)
 
 onready var owner = get_parent()
@@ -12,7 +14,25 @@ export(int) var defense = 1
 export(int) var max_hp = 5 setget _set_max_hp
 var hp = 5 setget _set_hp
 
+var status_effects = {}
+
 var hpbar
+
+func has_status_effect(name):
+	return name in self.status_effects
+
+func process_status_effects():
+	for key in self.status_effects:
+		self.status_effects[key] -= 1
+		if self.status_effects[key] <= 0:
+			self.status_effects.erase(key)
+
+func apply_status_effect(name, time):
+	if has_status_effect(name):
+		if time > self.status_effects[name]:
+			self.status_effects[name] = time
+	else:
+		self.status_effects[name] = time
 
 func fill_hp():
 	self.hp = self.max_hp
