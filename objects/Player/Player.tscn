@@ -36,7 +36,8 @@ draw_bg = true
 [node name="Object" type="Node2D"]
 
 script/script = ExtResource( 1 )
-name = "Player"
+name = "Malco"
+proper_name = true
 blocks_movement = true
 stay_visible = false
 

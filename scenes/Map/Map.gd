@@ -15,7 +15,7 @@ func spawn_object(partial_path,cell):
 
 
 func draw_map():
-	var family = TileFamily.FAMILY_SANDSTONE
+	var family = TileFamily.FAMILY_BRICK_DARK
 	var datamap = DungeonGen.datamap
 	for x in range(datamap.size()-1):
 		for y in range(datamap[x].size()-1):
@@ -114,7 +114,7 @@ func set_cursor():
 		# cursor over object
 		if !list.empty():
 			list.sort_custom(self,'_sort_z')
-			text = list[0].name
+			text = list[0].get_display_name()
 		else:
 			# cursor over empty wall/floor
 			text = "A wall" if is_wall(cell) else "A floor"

@@ -6,6 +6,7 @@ signal object_moved(me)
 signal object_acted()
 
 export(String, MULTILINE) var name = "OBJECT" setget _set_name
+export(bool) var proper_name = false
 export(bool) var blocks_movement = false
 
 export(bool) var stay_visible = false
@@ -17,6 +18,16 @@ var discovered = false # becomes true the first time seen becomes true
 var item
 var fighter
 var ai
+
+func get_display_name():
+	if self.proper_name:
+		# Return name if proper noun
+		return self.name.capitalize()
+	var pre = "A "
+	# "An" if first the letter in name is a vowel
+	if self.name[0].to_lower() in ['a','e','i','o','u']:
+		pre = "An "
+	return pre + self.name
 
 func kill():
 	if RPG.player != self:
@@ -58,14 +69,16 @@ func distance_to(cell):
 	return line.size() - 1
 
 
-
 # Set our position in map cell coordinates
-func set_map_pos(cell):
+# warp=true: set position regardless of blockers 
+# and don't emit moved signal
+func set_map_pos(cell, warp=false):
 	set_pos(RPG.map.map_to_world(cell))
-	if blocks_movement:
-		# declare dirty path cell
-		PathGen.dirty_cells[cell]=false
-	emit_signal('object_moved',self)
+	if not warp:
+		if blocks_movement:
+			# declare dirty path cell
+			PathGen.dirty_cells[cell]=false
+		emit_signal('object_moved',self)
 
 # Get our position in map cell coordinates
 func get_map_pos():
@@ -99,7 +112,7 @@ func _set_seen(what):
 	# Discover if seen for the first time
 	if seen and not discovered and not self==RPG.player:
 		discovered = true
-		RPG.broadcast("A " +self.name+ " has been found", RPG.COLOR_YELLOW)
+		RPG.broadcast(self.get_display_name()+ " has been found", RPG.COLOR_YELLOW)
 
 func _on_hp_changed(current,full):
 	if not fighter: return

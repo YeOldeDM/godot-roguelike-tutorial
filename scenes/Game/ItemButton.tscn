@@ -29,4 +29,8 @@ flat = true
 align = 0
 script/script = ExtResource( 5 )
 
+[node name="Brand" type="Sprite" parent="."]
+
+centered = false
+
 

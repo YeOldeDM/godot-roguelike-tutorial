@@ -9,6 +9,7 @@
 
 script/script = ExtResource( 1 )
 name = "Potion"
+proper_name = false
 blocks_movement = false
 stay_visible = true
 
@@ -20,8 +21,11 @@ centered = false
 [node name="Item" parent="." instance=ExtResource( 3 )]
 
 use_function = "heal_player"
+effect_name = null
 param1 = 10
 stackable = true
+throw_range = 4
+throw_damage = 0
 
 [node name="Brand" type="Sprite" parent="."]
 
