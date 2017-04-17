@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://objects/components/Object/Object.gd" type="Script" id=1]
 [ext_resource path="res://graphics/player/base/human_m.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://objects/components/Controller/Controller.tscn" type="PackedScene" id=4]
 [ext_resource path="res://graphics/lights/torch.png" type="Texture" id=5]
 [ext_resource path="res://objects/components/Fighter/Fighter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://graphics/player/hair/elf.png" type="Texture" id=7]
+[ext_resource path="res://graphics/player/beard/short.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -83,7 +85,7 @@ texture = ExtResource( 5 )
 offset = Vector2( 0, 0 )
 scale = 13.5
 color = Color( 1, 1, 1, 1 )
-energy = 1.5
+energy = 1.0
 mode = 0
 range/height = 0.0
 range/z_min = -1024
@@ -126,6 +128,18 @@ percent/visible = false
 
 [node name="Brand" type="Sprite" parent="."]
 
+centered = false
+
+[node name="Paperdoll" type="Node2D" parent="."]
+
+[node name="Hair" type="Sprite" parent="Paperdoll"]
+
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Beard" type="Sprite" parent="Paperdoll"]
+
+texture = ExtResource( 8 )
 centered = false
 
 

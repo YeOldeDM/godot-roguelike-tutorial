@@ -3,6 +3,18 @@ extends TileMap
 onready var map = get_parent()
 
 
+
+func get_datamap():
+	var data = []
+	var size = RPG.MAP_SIZE
+	for x in range(size.x):
+		var col = []
+		for y in range(size.y):
+			col.append(get_cell(x,y))
+		data.append(col)
+	return data
+
+
 func fill():
 	var size = RPG.MAP_SIZE
 	for x in range(size.x):
@@ -15,6 +27,13 @@ func reveal(cells):
 		if get_cellv(cell) != -1:
 			set_cellv(cell,-1)
 
+func reveal_from_data(data):
+	var cells = []
+	for x in range(data.size()-1):
+		for y in range(data[x].size()-1):
+			if data[x][y] == -1:
+				cells.append(Vector2(x,y))
+	reveal(cells)
 
 func _ready():
 	fill()

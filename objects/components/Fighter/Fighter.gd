@@ -18,6 +18,23 @@ var status_effects = {}
 
 var hpbar
 
+
+func save():
+	var data = {}
+	data.bleeds = self.bleeds
+	data.power = self.power
+	data.defense = self.defense
+	data.max_hp = self.max_hp
+	data.hp = self.hp
+	data.status_effects = self.status_effects
+	return data
+
+func restore(data):
+	for key in data:
+		if self.get(key)!=null:
+			self.set(key, data[key])
+
+
 func has_status_effect(name):
 	return name in self.status_effects
 

@@ -2,14 +2,37 @@ extends TileMap
 
 var fov_cells # set by Fogmap
 
+func new_map():
+	# Generate a dungeon
+	DungeonGen.generate()
+	# build a Pathfinding map
+	PathGen.build_map(RPG.MAP_SIZE,DungeonGen.get_floor_cells())
+	# paint the visual map
+	draw_map()
+
+func save():
+	var data = {}
+	data.datamap = DungeonGen.datamap
+	data.fogmap = get_node('Fogmap').get_datamap()
+	return data
+
+func restore(data):
+	if 'datamap' in data:
+		DungeonGen.datamap = data.datamap
+	if 'fogmap' in data:
+		get_node('Fogmap').reveal_from_data(data.fogmap)
+	draw_map()
+
+func restore_object(data):
+	var ob = load(data.filename)
+	var pos = Vector2(data.x, data.y)
+	if ob: 
+		ob = ob.instance().spawn(self,pos)
+		ob.restore(data)
+		return ob
+
 func spawn_object(partial_path,cell):
 	var path = 'res://objects/' +partial_path+ '.tscn'
-# DOESN'T WORK ON EXPORT
-#	var file = File.new()
-#	var exists = file.file_exists(path)
-#	if not exists: 
-#		OS.alert("no such object: "+path)
-#		return
 	var ob = load(path)
 	if ob: ob.instance().spawn(self,cell)
 
@@ -41,7 +64,7 @@ func is_cell_blocked(cell):
 func get_objects_in_cell(cell):
 	var list = []
 	for obj in get_tree().get_nodes_in_group('objects'):
-		if obj.get_map_pos() == cell:
+		if obj.get_parent() == RPG.map and obj.get_map_pos() == cell:
 			list.append(obj)
 	return list
 
@@ -132,14 +155,8 @@ func set_cursor_label(text=''):
 
 func _ready():
 	RPG.map = self
-	# Generate a dungeon
-	DungeonGen.generate()
-	# Output dungeon to text
-	DungeonGen.map_to_text()
-	# build a Pathfinding map
-	PathGen.build_map(RPG.MAP_SIZE,DungeonGen.get_floor_cells())
-	# paint the visual map
-	draw_map()
+
+
 
 
 func _on_player_acted():

@@ -1,0 +1,597 @@
+[gd_scene load_steps=10 format=1]
+
+[ext_resource path="res://resources/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/TitleMenu/TitleMenu.gd" type="Script" id=2]
+[ext_resource path="res://graphics/dungeon/walls/lair0.png" type="Texture" id=3]
+[ext_resource path="res://fonts/windows_command_prompt.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scenes/TitleMenu/CharGen.gd" type="Script" id=5]
+[ext_resource path="res://resources/borderframe_blank.tres" type="StyleBox" id=6]
+[ext_resource path="res://resources/black_panel.tres" type="StyleBox" id=7]
+[ext_resource path="res://graphics/player/base/human_m.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 24
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 4 )
+
+[node name="TitleMenu" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+script/script = ExtResource( 2 )
+
+[node name="TextureFrame" type="TextureFrame" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+texture = ExtResource( 3 )
+modulate = Color( 0.320313, 0.138885, 0.138885, 1 )
+expand = true
+stretch_mode = 2
+
+[node name="Main" type="PanelContainer" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 176.0
+margin/top = 172.0
+margin/right = -176.0
+margin/bottom = -244.0
+
+[node name="box" type="VBoxContainer" parent="Main"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 6.0
+margin/top = 6.0
+margin/right = 346.0
+margin/bottom = 410.0
+alignment = 0
+
+[node name="Title" type="Label" parent="Main/box"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 340.0
+margin/bottom = 22.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.405396, 0.5625, 0.333984, 1 )
+text = "SLAVES OF TODOG"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Author" type="Label" parent="Main/box"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 26.0
+margin/right = 340.0
+margin/bottom = 40.0
+custom_colors/font_color = Color( 0.429153, 0.461951, 0.488281, 1 )
+text = "2017 YeOldeDM"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="options" type="VBoxContainer" parent="Main/box"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 44.0
+margin/right = 340.0
+margin/bottom = 404.0
+alignment = 1
+
+[node name="Continue" type="Button" parent="Main/box/options"]
+
+rect/min_size = Vector2( 200, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 70.0
+margin/top = 140.0
+margin/right = 270.0
+margin/bottom = 164.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Continue Your Journey"
+flat = false
+
+[node name="New" type="Button" parent="Main/box/options"]
+
+rect/min_size = Vector2( 200, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 70.0
+margin/top = 168.0
+margin/right = 270.0
+margin/bottom = 192.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Begin a New Journey"
+flat = false
+
+[node name="Quit" type="Button" parent="Main/box/options"]
+
+rect/min_size = Vector2( 200, 24 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 70.0
+margin/top = 196.0
+margin/right = 270.0
+margin/bottom = 220.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Quit"
+flat = false
+
+[node name="CharGen" type="PanelContainer" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 176.0
+margin/top = 140.0
+margin/right = -176.0
+margin/bottom = -212.0
+script/script = ExtResource( 5 )
+
+[node name="box" type="VBoxContainer" parent="CharGen"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 6.0
+margin/top = 6.0
+margin/right = 346.0
+margin/bottom = 346.0
+alignment = 0
+
+[node name="Title" type="Label" parent="CharGen/box"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 340.0
+margin/bottom = 22.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.405396, 0.5625, 0.333984, 1 )
+text = "Who art thou?"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="1" type="VBoxContainer" parent="CharGen/box"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 26.0
+margin/right = 340.0
+margin/bottom = 214.0
+alignment = 1
+
+[node name="Label" type="Label" parent="CharGen/box/1"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 340.0
+margin/bottom = 14.0
+text = "Name Thyself.."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Name" type="HBoxContainer" parent="CharGen/box/1"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 18.0
+margin/right = 340.0
+margin/bottom = 44.0
+alignment = 0
+
+[node name="NameEdit" type="LineEdit" parent="CharGen/box/1/Name"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 256.0
+margin/bottom = 26.0
+custom_styles/focus = ExtResource( 6 )
+custom_styles/normal = ExtResource( 7 )
+placeholder/text = "Type a name here"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="RandName" type="Button" parent="CharGen/box/1/Name"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 260.0
+margin/top = 0.0
+margin/right = 340.0
+margin/bottom = 26.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Random Name"
+flat = false
+
+[node name="buttons" type="HBoxContainer" parent="CharGen/box/1"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 48.0
+margin/right = 340.0
+margin/bottom = 164.0
+alignment = 1
+
+[node name="Race" type="VButtonArray" parent="CharGen/box/1/buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 14.0
+margin/top = 0.0
+margin/right = 84.0
+margin/bottom = 116.0
+flat = false
+button/count = 5
+button/min_button_size = -1.0
+button/align = 0
+button/0/text = "Human"
+button/0/tooltip = ""
+button/0/icon = null
+button/1/text = "Elf"
+button/1/tooltip = ""
+button/1/icon = null
+button/2/text = "Dwarf"
+button/2/tooltip = ""
+button/2/icon = null
+button/3/text = "Halfling"
+button/3/tooltip = ""
+button/3/icon = null
+button/4/text = "Gnome"
+button/4/tooltip = ""
+button/4/icon = null
+button/selected = 0
+
+[node name="Gender" type="VButtonArray" parent="CharGen/box/1/buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 88.0
+margin/top = 36.0
+margin/right = 145.0
+margin/bottom = 80.0
+flat = false
+button/count = 2
+button/min_button_size = -1.0
+button/align = 0
+button/0/text = "Male"
+button/0/tooltip = ""
+button/0/icon = null
+button/1/text = "Female"
+button/1/tooltip = ""
+button/1/icon = null
+button/selected = 0
+
+[node name="Beard" type="VButtonArray" parent="CharGen/box/1/buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 149.0
+margin/top = 24.0
+margin/right = 240.0
+margin/bottom = 92.0
+flat = false
+button/count = 3
+button/min_button_size = -1.0
+button/align = 0
+button/0/text = "No Beard"
+button/0/tooltip = ""
+button/0/icon = null
+button/1/text = "Short Beard"
+button/1/tooltip = ""
+button/1/icon = null
+button/2/text = "Long Beard"
+button/2/tooltip = ""
+button/2/icon = null
+button/selected = 0
+
+[node name="Hair" type="VButtonArray" parent="CharGen/box/1/buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 244.0
+margin/top = 0.0
+margin/right = 326.0
+margin/bottom = 116.0
+flat = false
+button/count = 5
+button/min_button_size = -1.0
+button/align = 0
+button/0/text = "No Hair"
+button/0/tooltip = ""
+button/0/icon = null
+button/1/text = "Short Hair"
+button/1/tooltip = ""
+button/1/icon = null
+button/2/text = "Long Hair"
+button/2/tooltip = ""
+button/2/icon = null
+button/3/text = "Wavy Hair"
+button/3/tooltip = ""
+button/3/icon = null
+button/4/text = "Ponytail"
+button/4/tooltip = ""
+button/4/icon = null
+button/selected = 0
+
+[node name="HairColor" type="HBoxContainer" parent="CharGen/box/1"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 168.0
+margin/right = 340.0
+margin/bottom = 188.0
+alignment = 0
+
+[node name="Label" type="Label" parent="CharGen/box/1/HairColor"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 3.0
+margin/right = 70.0
+margin/bottom = 17.0
+text = "Hair Color"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Picker" type="ColorPickerButton" parent="CharGen/box/1/HairColor"]
+
+rect/min_size = Vector2( 32, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 74.0
+margin/top = 0.0
+margin/right = 106.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+color = Color( 1, 1, 1, 1 )
+edit_alpha = true
+
+[node name="2" type="HBoxContainer" parent="CharGen/box"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 218.0
+margin/right = 340.0
+margin/bottom = 322.0
+alignment = 0
+
+[node name="info" type="PanelContainer" parent="CharGen/box/2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 168.0
+margin/bottom = 104.0
+
+[node name="doll" type="CenterContainer" parent="CharGen/box/2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 172.0
+margin/top = 0.0
+margin/right = 340.0
+margin/bottom = 104.0
+use_top_left = false
+
+[node name="Base" type="TextureFrame" parent="CharGen/box/2/doll"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 68.0
+margin/top = 36.0
+margin/right = 100.0
+margin/bottom = 68.0
+texture = ExtResource( 8 )
+stretch_mode = 0
+
+[node name="Beard" type="Sprite" parent="CharGen/box/2/doll/Base"]
+
+centered = false
+
+[node name="Hair" type="Sprite" parent="CharGen/box/2/doll/Base"]
+
+centered = false
+
+[node name="3" type="HBoxContainer" parent="CharGen/box"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 326.0
+margin/right = 340.0
+margin/bottom = 340.0
+custom_constants/separation = 64
+alignment = 1
+
+[node name="Back" type="Button" parent="CharGen/box/3"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 55.0
+margin/top = 0.0
+margin/right = 104.0
+margin/bottom = 14.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Go Back"
+flat = false
+
+[node name="Start" type="Button" parent="CharGen/box/3"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 168.0
+margin/top = 0.0
+margin/right = 285.0
+margin/bottom = 14.0
+disabled = true
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Begin Thy Journey"
+flat = false
+
+[connection signal="pressed" from="Main/box/options/Continue" to="." method="_on_Continue_pressed"]
+
+[connection signal="pressed" from="Main/box/options/New" to="." method="_on_New_pressed"]
+
+[connection signal="pressed" from="Main/box/options/Quit" to="." method="_on_Quit_pressed"]
+
+[connection signal="text_changed" from="CharGen/box/1/Name/NameEdit" to="CharGen" method="_on_NameEdit_text_changed"]
+
+[connection signal="pressed" from="CharGen/box/1/Name/RandName" to="CharGen" method="_on_RandName_pressed"]
+
+[connection signal="button_selected" from="CharGen/box/1/buttons/Race" to="CharGen" method="_on_Race_button_selected"]
+
+[connection signal="button_selected" from="CharGen/box/1/buttons/Gender" to="CharGen" method="_on_Gender_button_selected"]
+
+[connection signal="button_selected" from="CharGen/box/1/buttons/Beard" to="CharGen" method="_on_Beard_button_selected"]
+
+[connection signal="button_selected" from="CharGen/box/1/buttons/Hair" to="CharGen" method="_on_Hair_button_selected"]
+
+[connection signal="color_changed" from="CharGen/box/1/HairColor/Picker" to="CharGen" method="_on_Picker_color_changed"]
+
+[connection signal="pressed" from="CharGen/box/3/Back" to="." method="_on_Back_pressed"]
+
+[connection signal="pressed" from="CharGen/box/3/Start" to="CharGen" method="_on_Start_pressed"]
+
+

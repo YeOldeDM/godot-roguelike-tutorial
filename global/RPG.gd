@@ -1,5 +1,7 @@
 extends Node
 
+const SAVEGAME_PATH = "user://game.sav"
+
 const COLOR_WHITE = '#deeed6'
 const COLOR_LIGHT_GREY = '#8595a1'
 const COLOR_DARK_GREY = '#4e4a4e'
@@ -29,6 +31,10 @@ var map
 var inventory
 var inventory_menu
 
+
+var restore_game = false
+
+var player_data = {}
 
 func broadcast(message, color=COLOR_WHITE):
 	if game:

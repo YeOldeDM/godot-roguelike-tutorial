@@ -3,7 +3,13 @@ extends GridContainer
 onready var objects = get_node('../InventoryObjects')
 onready var name_label = get_node('../ItemName')
 
-
+# Restore inventory objects from data
+#func restore_item(data):
+#	var ob = load(data.filename).instance()
+#	if ob:
+#		ob.restore(data,false)
+#		print(ob.item != null)
+#		add_to_inventory(ob)
 
 # Get an array of all inventory Objects
 func get_objects():
@@ -23,29 +29,33 @@ func get_matching_slot(item):
 				return node
 
 # add an item to an inventoryslot
-func add_to_inventory(item):
+func add_to_inventory(obj):
+	print(obj.get_display_name())
 	var slot = null
-	if item.item.stackable:
+
+	if obj.item && obj.item.stackable:
 		# find a matching slot
-		slot = get_matching_slot(item)
+		slot = get_matching_slot(obj)
 	# find free slot if no matches found
 	if !slot: slot = get_free_slot()
 	# break if no slots free
 	if !slot: return
 	
 	# remove from world objects group
-	if item.is_in_group('objects'):
-		item.remove_from_group('objects')
+	if obj.is_in_group('world'):
+		obj.remove_from_group('world')
 	# add to inventory group
-	if not item.is_in_group('inventory'):
-		item.add_to_group('inventory')
+	if !obj.is_in_group('inventory'):
+		obj.add_to_group('inventory')
 	
 	# shift item parent from Map to InventoryObjects
-	item.get_parent().remove_child(item)
-	objects.add_child(item)
+	if obj.get_parent() == RPG.map:
+		obj.get_parent().remove_child(obj)
+	objects.add_child(obj)
 	
-	# assign the item to the slot
-	slot.add_contents(item)
+	# assign the obj to the slot
+	slot.add_contents(obj)
+	print(obj.get_groups())
 	return OK
 
 
@@ -53,7 +63,7 @@ func remove_from_inventory(slot, item):
 	slot.remove_contents(item)
 	
 	item.remove_from_group('inventory')
-	item.add_to_group('objects')
+	item.add_to_group('world')
 
 	item.get_parent().remove_child(item)
 	RPG.map.add_child(item)

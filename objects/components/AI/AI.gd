@@ -4,7 +4,16 @@ onready var owner = get_parent()
 
 func _ready():
 	owner.ai = self
-	
+
+
+func save():
+	var data = {}
+	return data
+
+func restore(data):
+	pass
+
+
 func take_turn():
 	if owner.fighter.has_status_effect('confused'):
 		var UP = randi()%2
